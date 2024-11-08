@@ -63,3 +63,7 @@ User Login:
 6) User can view list of books which available more than 0. 
 7) User can select 2 books among the displayed list and add to borrowed list.
 8) If User selects more than 2 books then we see popup saying only 2 books allowed to borrow.
+
+DB Structure
+![image](https://github.com/user-attachments/assets/6b6bc85c-da72-4d89-91df-08c6077670ff)
+
