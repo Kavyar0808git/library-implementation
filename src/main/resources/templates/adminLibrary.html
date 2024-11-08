@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>List Books</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>List of Books Available</h1>
+    </div>
+    
+    <div>
+    		<h3><a th:href="@{/addNewBook}">Add new book</a></h3>
+    </div>
+    
+    <h3><a th:href="@{/library}">Library</a></h3>
+		<h3><a th:href="@{/borrowedList}">Borrowed List</a></h3>
+     
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Number of copies available</th>
+                    <th>Books Borrowed User Names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customBook: ${listBooks}">
+                    <td th:text="${customBook.book.id}">Book ID</td>
+                    <td th:text="${customBook.book.bookName}">Book Name</td>
+                    <td th:text="${customBook.book.availableCopies}">Number of copies available</td>
+                    <td th:text="${customBook.userNames}">Borrowed Users Name</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+    
+    <hr>
+		
+		<a th:href = "@{/}"> Back to Admin page</a>
+</div>
+</body>
+</html>

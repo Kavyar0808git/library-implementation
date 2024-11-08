@@ -1,0 +1,11 @@
+com\library\repository\BookRepository.class
+com\library\repository\UserRepository.class
+com\library\service\BookService.class
+com\library\entity\UserBooks.class
+com\library\service\UserServiceImpl.class
+com\library\entity\Book.class
+com\library\controller\AppController.class
+com\library\service\BookServiceImpl.class
+com\library\service\UserServce.class
+com\library\SpringBootRegistrationLoginApplication.class
+com\library\entity\User.class
