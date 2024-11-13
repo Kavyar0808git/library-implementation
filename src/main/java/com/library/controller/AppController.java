@@ -2,6 +2,7 @@ package com.library.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -116,26 +117,30 @@ public class AppController {
 	//As per design once the book is borrowed, the available copies count will reduce in book table.
 	//After submit display borrowed list.
 	@PostMapping("/saveBorrowedList")
-	public String saveBorrowedList(@RequestParam("select") List<Long> booksIDList, Model model) {
+	public String saveBorrowedList(@RequestParam("select") Optional<List<Long>> booksIDList, Model model) {
 		if (loggedInUserData != null) {
 			List<UserBooks> listUserBooks = bookService.findAllBorrowedBooksByUser(loggedInUserData.getId());
 
 			if (listUserBooks.size() < 2) {
 				booksIDList.stream().forEach(booksId -> {
 					UserBooks userBooks = new UserBooks();
-					userBooks.setBooksID(booksId);
+					userBooks.setBooksID(booksId.get(0));
 					userBooks.setUserID(loggedInUserData.getId());
 					bookService.saveUserBooks(userBooks);
 					listUserBooks.add(userBooks);
 
 					// reduce the available copies
-					bookService.updateBookCopies(booksId);
+					bookService.updateBookCopies(booksId.get(0));
 				});
 			}
 
 			List<Book> listBooks = new ArrayList<Book>();
 			listUserBooks.stream().forEach(userBook -> {
-				listBooks.add(bookService.findBookByID(userBook.getBooksID()));
+				try {
+					listBooks.add(bookService.findBookByID(userBook.getBooksID()));
+				} catch (Exception ex) {
+					System.out.println("No book found for ID: " + userBook.getBooksID());
+				}
 			});
 
 			model.addAttribute("listBooks", listBooks);
@@ -151,7 +156,11 @@ public class AppController {
 
 		List<Book> listBooks = new ArrayList<Book>();
 		listUserBooks.stream().forEach(userBook -> {
-			listBooks.add(bookService.findBookByID(userBook.getBooksID()));
+			try {
+				listBooks.add(bookService.findBookByID(userBook.getBooksID()));
+			} catch (Exception ex) {
+				System.out.println("No book found for ID: " + userBook.getBooksID());
+			}
 		});
 		model.addAttribute("listBooks", listBooks);
 		return "borrowedList";

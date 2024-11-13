@@ -34,7 +34,7 @@
      
     <div>
     <form id="myForm"  name="form_name" th:action="@{/saveBorrowedList}" method="post">
-        <table class="table table-striped table-bordered">
+        <table id="myTable" class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
                 	<th>Select to borrowed lists</th>
@@ -52,7 +52,7 @@
                 </tr>
             </tbody>
         </table>
-        <input type="submit" value="Submit">
+        <input id="submitBtn" type="submit" value="Submit"></input>
     </form>
         <script type="text/javascript">checkBoxLimit()</script>
     
